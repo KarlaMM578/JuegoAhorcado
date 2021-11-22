@@ -52,6 +52,7 @@ public interface DiccionariosDAO extends DAO<Diccionario> {
 	 * @param d Diccionario
 	 * */
 	public void elimina(Palabra p, Diccionario d);
+	//
 }
 
 
