@@ -17,7 +17,7 @@
 		</style>	
 	</head>
 	
-	<body id="gard1">
+	<body id="grad1">
 		<div align="center">
 			<form action="juego.jsp" method="post">
 			<table class="table">
@@ -47,7 +47,3 @@
 		</div>
 	</body>
 </html>
-
-	<!--
-	
-	-->
