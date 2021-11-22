@@ -21,6 +21,8 @@ import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.HomePageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.PerdistePageCommand;
 
 public class FrontController extends HttpServlet implements IControlDeJuego {
+	private int maxErrores;
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String forward = handleRequest(req, resp);
 		req.getRequestDispatcher(forward + ".jsp").forward(req, resp);
@@ -73,7 +75,8 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 
 	@Override
 	public void setDificultad(Dificultad d) {
-		// TODO Auto-generated method stub
+		Ahorcado ahorcado = new Ahorcado();
+		this.maxErrores = ahorcado.getMaxNumErrores(d);
 		
 	}
 
@@ -99,5 +102,20 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 	public void setVerificacionDeLetrasUsadas(boolean b) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getMaxNumErrores(Dificultad d) {
+		int numErrores=0;
+		switch(d) {
+			case FACIL:
+				numErrores= 8;
+			case MEDIA:
+				numErrores= 5;
+			case DIFICIL:
+				numErrores= 2;
+			default:
+				System.out.println();
+		}
+		return numErrores;
 	}
 }
