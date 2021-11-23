@@ -17,6 +17,7 @@ import mx.uaemex.fi.juegos.ahorcado.modelo.control.IControlDeJuego;
 import mx.uaemex.fi.juegos.ahorcado.modelo.data.Diccionario;
 import mx.uaemex.fi.juegos.ahorcado.modelo.data.Palabra;
 import mx.uaemex.fi.juegos.ahorcado.modelo.sql.PalabrasDAOSqlImp;
+import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.DispatcherHomePage;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.ErrorPageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.HomePageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.PerdistePageCommand;
@@ -30,29 +31,24 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 	private String palabra;
 	private char[] resultado;
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String forward = handleRequest(req, resp);
-		req.getRequestDispatcher(forward + ".jsp").forward(req, resp);
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+
+		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		DispatcherHomePage dispatcher = new DispatcherHomePage();
+		dispatcher.dispatcher(request, response);
+
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String redirect = handleRequest(req, resp);
-		resp.sendRedirect(redirect);
-		System.out.println("post request");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
-	private String handleRequest(HttpServletRequest req, HttpServletResponse resp) {
-		String command = req.getParameter("command");
-		ICommand iCommand = null;
-		String home = "HOME_PAGE";
-		if (home.equals(command)) {
-			iCommand = muestraPerdiste();
-		} else {
-			iCommand = new ErrorPageCommand();
-		}
-		return iCommand.execute(req, resp);
-	}
 
 	@Override
 	public ICommand muestraGanaste() {

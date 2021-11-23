@@ -42,6 +42,12 @@
 	</head>
 	
 	<body>
+	
+		<form action="controller" method="post">
+			<input type="text" placeholder="Ingrese una letra" name="letra"/>
+			<input type="submit" name="HOME_PAGE" value="Enviar"/>
+			<input type="submit" name="rendirce" value="Me rindo"/>
+		</form>
 
 		<div class="wrapper style1">
 			<div id="header" class="skel-panels-fixed">

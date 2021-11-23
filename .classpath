@@ -16,7 +16,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/kk902/OneDrive - Universidad Autónoma del Estado de México/Documents/11 SEMESTRE/ZDescargas/dbunit-2.7.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Jonathan/Documents/eclipse-workspace/Herramientas/dbunit-2.7.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

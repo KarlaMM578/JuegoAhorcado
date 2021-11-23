@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Letra</title>
 </head>
 <body>
-	HomePage
+	<%
+	out.print(request.getAttribute("saludo"));
+		out.print(request.getAttribute("letra"));
+	%>
 </body>
 </html>
