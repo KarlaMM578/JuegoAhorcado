@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +20,15 @@ import mx.uaemex.fi.juegos.ahorcado.modelo.sql.PalabrasDAOSqlImp;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.ErrorPageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.HomePageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.PerdistePageCommand;
+import mx.uaemex.fi.juegos.ahorcado.modelo.error.GanasteException;
+import mx.uaemex.fi.juegos.ahorcado.modelo.error.PerdisteException;
+import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.GanastePageCommand;
 
 public class FrontController extends HttpServlet implements IControlDeJuego {
-	private int maxErrores;
+	private int maxErrors;
+	private int numErrors;
+	private String palabra;
+	private char[] resultado;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String forward = handleRequest(req, resp);
@@ -48,9 +55,10 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 	}
 
 	@Override
-	public void muestraGanaste() {
-		// TODO Auto-generated method stub
-		
+	public ICommand muestraGanaste() {
+		ICommand iCommand = null;
+		iCommand = new GanastePageCommand();
+		return iCommand;
 	}
 
 	@Override
@@ -67,40 +75,54 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 		return iCommand;
 	}
 
-	@Override
-	public void iniciaJuego(Ahorcado j) {
-		// TODO Auto-generated method stub
-		
+	public void iniciaJuego(ServletConfig j) throws ServletException{
+		super.init(j);		
 	}
 
 	@Override
 	public void setDificultad(Dificultad d) {
 		Ahorcado ahorcado = new Ahorcado();
-		this.maxErrores = ahorcado.getMaxNumErrores(d);
+		this.maxErrors = ahorcado.getMaxNumErrores(d);
 		
 	}
 
 	@Override
 	public void setDiccionario(Diccionario d) {
-		// TODO Auto-generated method stub
+		Diccionario diccionario = new Diccionario();
+		diccionario.setId(d.getId());
 		
 	}
 
 	@Override
 	public void registrarLetra(char c) {
-		// TODO Auto-generated method stub
-		
+		char[] letra=null;
+		letra = this.resultado;
 	}
 
 	@Override
 	public boolean buscarLetra(char c) {
-		// TODO Auto-generated method stub
-		return false;
+		char[] letra;
+		boolean encuentra=false;
+		
+		letra = this.palabra.toCharArray();
+		for(int i = 0; i < letra.length;i++) {
+			if(letra[i]==c) {
+				this.resultado[i] = c;
+				encuentra = true;
+			}
+		}
+		if(!encuentra) {
+			this.numErrors++;
+			encuentra = false;
+		}
+		return encuentra;
 	}
 
 	@Override
 	public void setVerificacionDeLetrasUsadas(boolean b) {
-		// TODO Auto-generated method stub
+		if(this.numErrors>this.maxErrors) {
+			throw new PerdisteException();
+		}
 		
 	}
 	
@@ -117,5 +139,11 @@ public class FrontController extends HttpServlet implements IControlDeJuego {
 				System.out.println();
 		}
 		return numErrores;
+	}
+
+	@Override
+	public void iniciaJuego(Ahorcado j) {
+		// TODO Auto-generated method stub
+		
 	}
 }
