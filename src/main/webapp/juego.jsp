@@ -75,13 +75,25 @@
               </span>
             </td>
             <td>
-              <span class="label label-info">${hangmanView.isPlayerWonTheGame}</span>
+              	<span class="label label-info">
+					<%
+						out.print(request.getAttribute("numGanados"));
+					%>
+				</span>
             </td>
             <td>
-              <span class="label label-info">${hangmanView.isPlayerLostTheGame}</span>
+              <span class="label label-info">
+					<%
+						out.print(request.getAttribute("numPerdidos"));
+					%>
+				</span>
             </td>
             <td>
-              <span class="label label-info">${hangmanView.hangman.remainingMoves}</span>
+				<span class="label label-info">
+					<%
+						out.print(request.getAttribute("numIntentos"));
+					%>
+				</span>
             </td>
           </tr>
         </c:forEach>
@@ -101,53 +113,22 @@
 		    <input type="text" name="letra" size="1" maxlength="1">		    		   
 		    <input type="hidden" name="id" value=""/>     
 		    <input type="submit" name="boton_jugar" value="Jugar">
-		    <c:if test="${hangmanView.isPlayerWonTheGame}">			    
-	            <form action="despidete.jsp" method="get">
-				   <input type="submit" value="Salir">
-			    </form>
+		    <c:if test="<% out.print(request.getAttribute("numIntentos")); %>">
+				<img src="images/img<%=intentos %>.png" height="450"/ alt="3">
            	</c:if>		   
-		   <c:if test="${hangmanView.isPlayerWonTheGame}">		   	   
-               <form action="ganar.jsp" method="get">
-				   <input type="submit" value="Salir">
-			   </form>
-           </c:if>
-		   <c:if test="${hangmanView.isPlayerWonTheGame}">		   	   
-               <form action="perder.jsp" method="get">
-				   <input type="submit" value="Salir">
-			   </form>
-           </c:if>
+		   <c:if test="<% out.print(request.getAttribute("ganar")); %>
+				<%
+					String redirectURL = "ganar.jsp";
+					response.sendRedirect(redirectURL);
+				%>
+			</c:if>">		   	   
+			<c:if test="<% out.print(request.getAttribute("perder")); %>
+				<%
+					String redirectURL = "perder.jsp";
+					response.sendRedirect(redirectURL);
+				%>
+			</c:if>">
 		   
 		</div>
 	</body>
 </html>
-
-<!-- 
-<head>
-<meta charset="ISO-8859-1">
-<title>Cuenta hasta el numero recibido</title>
-</head>
-<body>
-	<ul>
-	
-		session.setAttribute("usuario", request.getParameter("usuario"));
-	
-		int max = Integer.parseInt(request.getParameter("maximo"));
-		if(max>=1){
-			for(int i=1; i<max; i++){
-				out.println("<li>"+i+"</li>");
-			}
-		} else {
-			for(int i=max; i<0; i++){
-				out.println("<li>"+i+"</li>");
-			}
-		}
-	%>
-	</ul>
-	<ul>
-		<form action="despidete.jsp" method="get">
-			<input type="submit" value="Salir">
-		</form>
-	</ul>
-</body>
-
- -->

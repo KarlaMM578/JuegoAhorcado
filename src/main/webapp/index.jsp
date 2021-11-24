@@ -25,7 +25,7 @@
 				cursor: pointer;
 			}
 		</style>
-		<title>Ahoracdo Capa 8</title>
+		<title>Ahorcado Capa 8</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />		
@@ -65,7 +65,7 @@
 		<div id="page" class="container">
 			<section>
 				<header class="major">
-					<center><h2>Index</h2></center>
+					<center><h2>Juego del Ahorcado</h2></center>
 				</header>
 			</section>
 		</div>
@@ -83,7 +83,7 @@
 						<h2>Configuracion</h2>
 						<span class="byline">Elige las opciones de juego</span>
 					</header>
-					<form method="post" action="Ahorcado">
+					<form method="post" action="Ahorcados">
 						<div class="row half">
 							<div class="12u">
 								<input class="text" type="text" name="name" id="name" placeholder="Nombre" />
