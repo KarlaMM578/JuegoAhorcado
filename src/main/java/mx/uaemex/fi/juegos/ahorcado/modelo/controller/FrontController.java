@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import mx.uaemex.fi.juegos.ahorcado.modelo.control.Ahorcado;
 import mx.uaemex.fi.juegos.ahorcado.modelo.control.Dificultad;
@@ -17,7 +21,7 @@ import mx.uaemex.fi.juegos.ahorcado.modelo.control.IControlDeJuego;
 import mx.uaemex.fi.juegos.ahorcado.modelo.data.Diccionario;
 import mx.uaemex.fi.juegos.ahorcado.modelo.data.Palabra;
 import mx.uaemex.fi.juegos.ahorcado.modelo.sql.PalabrasDAOSqlImp;
-import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.DispatcherHomePage;
+import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.DispatcherAhorcadoPage;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.ErrorPageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.HomePageCommand;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.PerdistePageCommand;
@@ -25,21 +29,38 @@ import mx.uaemex.fi.juegos.ahorcado.modelo.error.GanasteException;
 import mx.uaemex.fi.juegos.ahorcado.modelo.error.PerdisteException;
 import mx.uaemex.fi.juegos.ahorcado.modelo.dispatcher.GanastePageCommand;
 
+
+
+@WebServlet("/Ahorcado")
 public class FrontController extends HttpServlet implements IControlDeJuego {
 	private int maxErrors;
 	private int numErrors;
 	private String palabra;
 	private char[] resultado;
+	private static final long serialVersionUID = 1L;
+	
+	public FrontController() {
+		super();
+	}
 	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-
 		
+		DataSource ds;
+        InitialContext cxt;
+        
+        try {
+            cxt = new InitialContext();
+            ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/ds" );
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		DispatcherHomePage dispatcher = new DispatcherHomePage();
+		
+		DispatcherAhorcadoPage dispatcher = new DispatcherAhorcadoPage();
 		dispatcher.dispatcher(request, response);
 
 	}

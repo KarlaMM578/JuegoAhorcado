@@ -15,9 +15,10 @@ public class DiccionarioDAOSqlImp extends AbstractDAO implements DiccionariosDAO
 
 	@Override
 	public List<Diccionario> find() {
-		String sql = "select id, tema from diccionario";
+		String sql = "select id, tema from diccionarios";
 		List<Diccionario> lista = new ArrayList<Diccionario>();
-		
+		Conexion conn = new Conexion();
+		//conn.getConnection();
 		try {
 			Statement stm = this.conexion.createStatement();
 			

@@ -52,6 +52,12 @@
 		</form>
 		
 		 -->
+		 
+		 <span class="label label-info">
+              	<%
+					out.print(request.getAttribute("nombre"));
+				%>
+              </span>
 
 		<div class="wrapper style1">
 			<div id="header" class="skel-panels-fixed">
@@ -65,7 +71,7 @@
 		<div id="page" class="container">
 			<section>
 				<header class="major">
-					<center><h2>Index</h2></center>
+					<center><h2>Juego del ahorcado</h2></center>
 				</header>
 			</section>
 		</div>
@@ -83,7 +89,7 @@
 						<h2>Configuracion</h2>
 						<span class="byline">Elige las opciones de juego</span>
 					</header>
-					<form method="post" action="Ahorcado">
+					<form method="get" action="controller">
 						<div class="row half">
 							<div class="12u">
 								<input class="text" type="text" name="name" id="name" placeholder="Nombre" />

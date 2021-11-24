@@ -53,6 +53,7 @@
 		<table class="table">
           <tr>
             <th style="vertical-align: middle">Jugador: </th>
+            <th style="vertical-align: middle">Dificultad: </th>
             <th style="vertical-align: middle">Juegos ganados: </th>
             <th style="vertical-align: middle">Juegos perdidos: </th>
             <th style="vertical-align: middle">Intentos restantes: </th>        
@@ -60,7 +61,18 @@
           <c:forEach var="hangmanView" items="${hangmanViews}">
           <tr>
             <td>            
-              <span class="label label-info">${hangmanView.playerName}</span>
+              <span class="label label-info">
+              	<%
+					out.print(request.getAttribute("nombre"));
+				%>
+              </span>
+            </td>
+            <td>
+              <span class="label label-info">
+              	<%
+					out.print(request.getAttribute("dificultad"));
+				%>
+              </span>
             </td>
             <td>
               <span class="label label-info">${hangmanView.isPlayerWonTheGame}</span>
